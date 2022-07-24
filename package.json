@@ -1,0 +1,39 @@
+{
+  "name": "@anopszetex/worker-thread",
+  "version": "1.0.0",
+  "description": "how editing images using multi thread with nodejs",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "PORT=3712 NODE_ENV=development node src/index.js",
+    "dev": "PORT=3712 NODE_ENV=development npx nodemon --ext js,json,mjs src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anopszetex/worker-thread.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anopszetex/worker-thread/issues"
+  },
+  "homepage": "https://github.com/anopszetex/worker-thread#readme",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "pino": "^8.3.0",
+    "sharp": "^0.29.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.20.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.6.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "ntl": "^5.1.0",
+    "pino-pretty": "^8.1.0",
+    "prettier": "^2.7.1"
+  }
+}
