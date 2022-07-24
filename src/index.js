@@ -1,8 +1,11 @@
-import { buildServer } from './server/index.js';
+InjectHttpInterceptor();
+import { buildServer, InjectHttpInterceptor } from './server/index.js';
 import { serverConfig } from './server/config.js';
 import { logger } from './support/logger/service.js';
 
 function handler(req, res) {
+  req.log.info('succesfully handled request');
+
   return res.end('ok');
 }
 
