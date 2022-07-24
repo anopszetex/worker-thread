@@ -5,13 +5,11 @@ function InjectHttpInterceptor() {
   const oldEmit = http.Server.prototype.emit;
 
   http.Server.prototype.emit = function (...args) {
-    const [type, request] = args;
-
-    if (type === 'request') {
-      Object.assign(request, { log: logger });
+    if (args[0] === 'request') {
+      args[1].log = logger;
     }
 
-    return oldEmit.apply(this, args);
+    return Reflect.apply(oldEmit, this, args);
   };
 }
 
