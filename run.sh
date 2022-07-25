@@ -1,4 +1,6 @@
-IMAGE_URL="https://i.pinimg.com/736x/78/a8/dc/78a8dc846a3a82124456ec4e9a38b7a9.jpg"
-BACKGROUND_URL="https://images7.alphacoders.com/116/thumb-1920-1168264.png"
+IMAGE_URL="https://wallpapercave.com/wp/wp2482763.png"
+BACKGROUND_URL="https://wallpapercave.com/wp/wp2482763.png"
 
-curl "http://localhost:3712/joinImages?img=$IMAGE_URL&background=$BACKGROUND_URL"
+curl "http://localhost:3712/joinImages?image=$IMAGE_URL&background=$BACKGROUND_URL"
+
+# http://localhost:3712/joinImages?image=https://wallpapercave.com/wp/wp2482763.png&background=https://wallpapercave.com/wp/wp2482763.png
