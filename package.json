@@ -1,19 +1,21 @@
 {
   "name": "@anopszetex/worker-thread",
   "version": "1.0.0",
+  "author": "Andre Luiz <andre.1357.luis@gmail.com>",
   "description": "how editing images using multi thread with nodejs",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "PORT=3712 NODE_ENV=development node src/index.js",
-    "dev": "PORT=3712 NODE_ENV=development npx nodemon --ext js,json,mjs src/index.js"
+    "dev": "PORT=3712 NODE_ENV=development npx nodemon --ext js,json,mjs src/index.js",
+    "autocannon": "autocannon --warmup [-c 1 -d 3] -c 500 -d 10 -p 10 -l http://localhost:3712",
+    "flame-0x": "PORT=3712 npx 0x -- node src/index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anopszetex/worker-thread.git"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/anopszetex/worker-thread/issues"
@@ -22,9 +24,12 @@
   "dependencies": {
     "axios": "^0.24.0",
     "pino": "^8.3.0",
+    "piscina": "^3.2.0",
     "sharp": "^0.29.3"
   },
   "devDependencies": {
+    "0x": "^5.4.0",
+    "autocannon": "^7.9.0",
     "eslint": "^8.20.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.5.0",
