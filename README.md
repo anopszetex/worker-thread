@@ -63,3 +63,23 @@ background=https://wallpapercave.com/wp/wp2482763.png
 ├───────────┼─────────┼─────────┼─────────┼─────────┼───────┼───────┼─────────┤
 │ Bytes/Sec │ 14.8 kB │ 14.8 kB │ 16.2 kB │ 16.4 kB │ 16 kB │ 545 B │ 14.8 kB │
 └───────────┴─────────┴─────────┴─────────┴─────────┴───────┴───────┴─────────┘
+```
+
+You also should monitor the application using compositon between flame 0x and autocannon.
+Instead of starting our server with the node binary, we use 0x executable.
+
+We start our server with the following command:
+```sh
+npm run flame-0x
+```
+
+In another terminal window we use autocannon to generate load:
+```sh
+npm run autocannon
+```
+
+The 0x tool has created a folder named profile-XXXX, where XXXX is the PID of the server process.
+
+If we open the flamegraph.html file with Google Chrome we'll be presented with some controls, and a flamegraph resembling the following:
+
+![image](https://user-images.githubusercontent.com/31970167/181130193-405dc4cd-0438-4f95-aaa1-910bf43f0797.png)
