@@ -1,5 +1,5 @@
-import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 
 export const __ndirname = filename => dirname(fileURLToPath(filename));
 
