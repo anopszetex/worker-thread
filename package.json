@@ -5,10 +5,13 @@
   "description": "how editing images using multi thread with nodejs",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "^16"
+  },
   "scripts": {
     "start": "PORT=3712 NODE_ENV=development node src/index.js",
     "dev": "PORT=3712 NODE_ENV=development npx nodemon --ext js,json,mjs src/index.js",
-    "autocannon": "autocannon --warmup [-c 1 -d 3] -c 500 -d 10 -p 10 -l http://localhost:3712",
+    "autocannon": "autocannon -c 100 -d 30 -p 10 -l http://localhost:3712/joinImages?image=https://wallpapercave.com/wp/wp2482763.png&background=https://wallpapercave.com/wp/wp2482763.png",
     "flame-0x": "PORT=3712 npx 0x -- node src/index.js"
   },
   "repository": {
