@@ -5,7 +5,7 @@ import axios from 'axios';
 const downloadFile = async url => {
   const response = await axios.get(url, {
     responseType: 'arraybuffer',
-    signal: AbortSignal.timeout(1000),
+    signal: AbortSignal.timeout(600),
   });
 
   return response.data;
