@@ -1,6 +1,7 @@
 InjectHttpInterceptor();
 import { buildServer, InjectHttpInterceptor } from './server/index.js';
 import { imageProcess } from './domains/handler/processImage.js';
+import RouterEntity from './support/error/routerEntity.js';
 import { logger } from './support/logger/service.js';
 import { setTimeout } from 'node:timers/promises';
 import { serverConfig } from './server/config.js';
@@ -21,7 +22,9 @@ const handler = async (req, res) => {
 
   req.log.info({ image, background }, '🧾 Request received');
 
-  if (!image || !background) {
+  const routerEntity = new RouterEntity({ image, background });
+
+  if (!routerEntity.isValid()) {
     req.log.warn('🧵 Request: empty files');
     res.end('empty files');
     return;
@@ -33,7 +36,9 @@ const handler = async (req, res) => {
 (async () => {
   const server = await buildServer();
 
-  server(handler).listen(serverConfig.port, () => {
+  const start = server(handler);
+
+  start.listen(serverConfig.port, () => {
     logger.info(`🚀 Running at http://localhost:${serverConfig.port}`);
   });
 })();
