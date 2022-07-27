@@ -6,6 +6,7 @@ import { logger } from './support/logger/service.js';
 import { setTimeout } from 'node:timers/promises';
 import { serverConfig } from './server/config.js';
 import AppError from './support/error/index.js';
+import { onStop } from './support/signal.js';
 import { parse } from 'node:url';
 
 const handler = async (req, res) => {
@@ -36,7 +37,7 @@ const handler = async (req, res) => {
 
     // eslint-disable-next-line promise/no-return-wrap
     return Promise.reject(
-      AppError.build('processImage', 'Error processing image')
+      AppError.build('processImage', 'error processing image')
     );
   });
 };
@@ -47,6 +48,11 @@ const handler = async (req, res) => {
   const start = server(handler);
 
   start.listen(serverConfig.port, () => {
+    onStop((err, evt) => {
+      start.close();
+      logger.error({ err, evt }, '🔥 Server stopped');
+    });
+
     logger.info(`🚀 Running at http://localhost:${serverConfig.port}`);
   });
 })();
