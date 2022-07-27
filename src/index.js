@@ -5,6 +5,7 @@ import RouterEntity from './support/error/routerEntity.js';
 import { logger } from './support/logger/service.js';
 import { setTimeout } from 'node:timers/promises';
 import { serverConfig } from './server/config.js';
+import AppError from './support/error/index.js';
 import { parse } from 'node:url';
 
 const handler = async (req, res) => {
@@ -30,7 +31,14 @@ const handler = async (req, res) => {
     return;
   }
 
-  await imageProcess({ image, background, req, res });
+  await imageProcess({ image, background, req, res }).catch(err => {
+    req.log.error(err.message);
+
+    // eslint-disable-next-line promise/no-return-wrap
+    return Promise.reject(
+      AppError.build('processImage', 'Error processing image')
+    );
+  });
 };
 
 (async () => {
