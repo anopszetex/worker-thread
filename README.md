@@ -1,5 +1,5 @@
 # worker-thread
-how editing images using multi thread with nodejs
+How editing images using multi thread with nodejs
 
 ## 🚀 Project Setup
 
