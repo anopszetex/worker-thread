@@ -1,5 +1,3 @@
-# worker-thread
-
 <details>
 <summary><strong>🇧🇷 Ver documentação em Português (Brasil)</strong></summary>
 
@@ -51,6 +49,8 @@ O resultado depende da latência das imagens remotas e dos recursos da máquina.
 - O repositório demonstra a arquitetura, mas ainda não possui testes automatizados.
 
 </details>
+
+# worker-thread
 
 ---
 
