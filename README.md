@@ -52,8 +52,6 @@ O resultado depende da latência das imagens remotas e dos recursos da máquina.
 
 # worker-thread
 
----
-
 An image-composition API that moves CPU-intensive work away from the Node.js event loop using **worker threads** and **Piscina**.
 
 ## What it demonstrates
