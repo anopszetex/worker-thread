@@ -1,85 +1,100 @@
 # worker-thread
-How editing images using multi thread with nodejs
 
-## 🚀 Project Setup
+An image-composition API that moves CPU-intensive work away from the Node.js event loop using **worker threads** and **Piscina**.
 
-To install dependencies, run the following commands:
+## What it demonstrates
 
-> Clone repo 
-```
-git clone https://github.com/anopszetex/worker-thread.git
-```
+- Downloading foreground and background images.
+- Combining images with Sharp inside a worker pool.
+- Keeping the HTTP server responsive while CPU-intensive work runs separately.
+- Comparing direct worker threads with a managed Piscina pool.
+- Load testing with Autocannon and profiling with `0x`.
 
-> Install dependencies
-```
-npm install 
-```
-or
-```
+## Requirements
+
+- Node.js 16 (the current dependency set is scheduled for modernization)
+- Native dependencies required by Sharp
+
+## Run
+
+```sh
 npm ci
-```
-## Let's start. First run:
-
-```sh
-# we use ntl to interactive to package.json scripts
-ntl
-
-# if you are using "oh my zsh"
-yarn ntl
+npm start
 ```
 
-You should choose the "dev"
+Call the API with URL-encoded image URLs:
 
-![image](https://user-images.githubusercontent.com/31970167/181119551-8e0755fe-8055-478e-9cbd-4ba97ce3cc22.png)
-
-
-In sequence run sh:
-```sh
-sh run.sh
+```text
+http://localhost:3712/joinImages?image=<image-url>&background=<background-url>
 ```
-You can access it here too: [localhost](http://localhost:3712/joinImages?image=https://wallpapercave.com/wp/wp2482763.png&background=https://wallpapercave.com/wp/wp2482763.png)
 
-You can ignore run.sh and execute autocannon directly. We use `autocannon` for benchmarking.
-In a separate terminal with server running, run autocannon:
+## Benchmark and profile
+
+With the server running:
+
 ```sh
 npm run autocannon
-```
-You should see results similar to:
-```
-Running 30 test @ http://localhost:3712/joinImages?
-image=https://wallpapercave.com/wp/wp2482763.png&
-background=https://wallpapercave.com/wp/wp2482763.png
-100 connections
-
-┌─────────┬────────┬────────┬────────┬────────┬──────────┬─────────┬───────────┐
-│ Stat    │ 2.5%   │ 50%    │ 97.5%  │ 99%    │ Avg      │ Stdev   │ Max       │
-├─────────┼────────┼────────┼────────┼────────┼──────────┼─────────┼───────────┤
-│ Latency │ 100 ms │ 101 ms │ 104 ms │ 125 ms │ 101.2 ms │ 3.09 ms │ 130.66 ms │
-└─────────┴────────┴────────┴────────┴────────┴──────────┴─────────┴───────────┘
-┌───────────┬─────────┬─────────┬─────────┬─────────┬───────┬───────┬─────────┐
-│ Stat      │ 1%      │ 2.5%    │ 50%     │ 97.5%   │ Avg   │ Stdev │ Min     │
-├───────────┼─────────┼─────────┼─────────┼─────────┼───────┼───────┼─────────┤
-│ Req/Sec   │ 90      │ 90      │ 99      │ 100     │ 97.8  │ 3.32  │ 90      │
-├───────────┼─────────┼─────────┼─────────┼─────────┼───────┼───────┼─────────┤
-│ Bytes/Sec │ 14.8 kB │ 14.8 kB │ 16.2 kB │ 16.4 kB │ 16 kB │ 545 B │ 14.8 kB │
-└───────────┴─────────┴─────────┴─────────┴─────────┴───────┴───────┴─────────┘
-```
-
-You also should monitor the application using compositon between flame 0x and autocannon.
-Instead of starting our server with the node binary, we use 0x executable.
-
-We start our server with the following command:
-```sh
 npm run flame-0x
 ```
 
-In another terminal window we use autocannon to generate load:
+The benchmark depends on remote image latency and machine resources; compare results on the same environment rather than treating the historical numbers as universal.
+
+## Current limitations
+
+- Remote URLs should be treated as untrusted input; production use requires SSRF protection and response-size limits.
+- Dependencies and the Node.js runtime still need modernization.
+- The repository currently demonstrates the architecture but does not yet include automated tests.
+
+---
+
+<details>
+<summary><strong>🇧🇷 Ver documentação em Português (Brasil)</strong></summary>
+
+# worker-thread
+
+API de composição de imagens que remove trabalho intensivo em CPU do event loop do Node.js usando **worker threads** e **Piscina**.
+
+## O que o projeto demonstra
+
+- Download das imagens principal e de fundo.
+- Composição com Sharp dentro de um pool de workers.
+- Servidor HTTP responsivo enquanto o processamento ocorre separadamente.
+- Comparação entre worker threads diretas e um pool gerenciado pelo Piscina.
+- Teste de carga com Autocannon e profiling com `0x`.
+
+## Requisitos
+
+- Node.js 16 (as dependências atuais ainda serão modernizadas)
+- Dependências nativas exigidas pelo Sharp
+
+## Execução
+
 ```sh
-npm run autocannon
+npm ci
+npm start
 ```
 
-The 0x tool has created a folder named profile-XXXX, where XXXX is the PID of the server process.
+Acesse a API usando URLs codificadas:
 
-If we open the flamegraph.html file with Google Chrome we'll be presented with some controls, and a flamegraph resembling the following:
+```text
+http://localhost:3712/joinImages?image=<url-da-imagem>&background=<url-do-fundo>
+```
 
-![image](https://user-images.githubusercontent.com/31970167/181130193-405dc4cd-0438-4f95-aaa1-910bf43f0797.png)
+## Benchmark e profiling
+
+Com o servidor em execução:
+
+```sh
+npm run autocannon
+npm run flame-0x
+```
+
+O resultado depende da latência das imagens remotas e dos recursos da máquina. Compare execuções no mesmo ambiente em vez de considerar os números históricos universais.
+
+## Limitações atuais
+
+- URLs remotas são entradas não confiáveis; uso em produção exige proteção contra SSRF e limites de tamanho.
+- As dependências e a versão do Node.js ainda precisam ser modernizadas.
+- O repositório demonstra a arquitetura, mas ainda não possui testes automatizados.
+
+</details>
