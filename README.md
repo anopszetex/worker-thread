@@ -1,52 +1,5 @@
 # worker-thread
 
-An image-composition API that moves CPU-intensive work away from the Node.js event loop using **worker threads** and **Piscina**.
-
-## What it demonstrates
-
-- Downloading foreground and background images.
-- Combining images with Sharp inside a worker pool.
-- Keeping the HTTP server responsive while CPU-intensive work runs separately.
-- Comparing direct worker threads with a managed Piscina pool.
-- Load testing with Autocannon and profiling with `0x`.
-
-## Requirements
-
-- Node.js 16 (the current dependency set is scheduled for modernization)
-- Native dependencies required by Sharp
-
-## Run
-
-```sh
-npm ci
-npm start
-```
-
-Call the API with URL-encoded image URLs:
-
-```text
-http://localhost:3712/joinImages?image=<image-url>&background=<background-url>
-```
-
-## Benchmark and profile
-
-With the server running:
-
-```sh
-npm run autocannon
-npm run flame-0x
-```
-
-The benchmark depends on remote image latency and machine resources; compare results on the same environment rather than treating the historical numbers as universal.
-
-## Current limitations
-
-- Remote URLs should be treated as untrusted input; production use requires SSRF protection and response-size limits.
-- Dependencies and the Node.js runtime still need modernization.
-- The repository currently demonstrates the architecture but does not yet include automated tests.
-
----
-
 <details>
 <summary><strong>🇧🇷 Ver documentação em Português (Brasil)</strong></summary>
 
@@ -98,3 +51,50 @@ O resultado depende da latência das imagens remotas e dos recursos da máquina.
 - O repositório demonstra a arquitetura, mas ainda não possui testes automatizados.
 
 </details>
+
+---
+
+An image-composition API that moves CPU-intensive work away from the Node.js event loop using **worker threads** and **Piscina**.
+
+## What it demonstrates
+
+- Downloading foreground and background images.
+- Combining images with Sharp inside a worker pool.
+- Keeping the HTTP server responsive while CPU-intensive work runs separately.
+- Comparing direct worker threads with a managed Piscina pool.
+- Load testing with Autocannon and profiling with `0x`.
+
+## Requirements
+
+- Node.js 16 (the current dependency set is scheduled for modernization)
+- Native dependencies required by Sharp
+
+## Run
+
+```sh
+npm ci
+npm start
+```
+
+Call the API with URL-encoded image URLs:
+
+```text
+http://localhost:3712/joinImages?image=<image-url>&background=<background-url>
+```
+
+## Benchmark and profile
+
+With the server running:
+
+```sh
+npm run autocannon
+npm run flame-0x
+```
+
+The benchmark depends on remote image latency and machine resources; compare results on the same environment rather than treating the historical numbers as universal.
+
+## Current limitations
+
+- Remote URLs should be treated as untrusted input; production use requires SSRF protection and response-size limits.
+- Dependencies and the Node.js runtime still need modernization.
+- The repository currently demonstrates the architecture but does not yet include automated tests.
